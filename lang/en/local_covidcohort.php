@@ -24,7 +24,18 @@
  */
 
 $string['pluginname'] = 'COVID cohort';
+$string['pluginsettings'] = 'Settings';
+$string['cohortshortname'] = 'Cohort shortname';
+$string['cohortshortname_desc'] = 'Enter the shortname of the COVID cohort';
+$string['roleshortname'] = 'Cohort role shortname';
+$string['roleshortname_desc'] = 'Enter the shortname of the COVID cohort custom role';
+$string['usertourid'] = "User tour ID";
+$string['usertourid_desc'] = "Enter the ID of the COVID cohort user tour";
+$string['uploadusers'] = 'Upload users';
 $string['action'] = 'Action';
 $string['action_help'] = 'Select the action for uploaded users (add to or remove from cohort)';
 $string['usersfile'] = 'Users file';
 $string['usersfile_help'] = 'CSV file of user email addresses to be added or removed from COVID required testing cohort. Format accepted: CSV.';
+$string['usersfileempty'] = 'The users file is empty';
+$string['nocohort'] = 'The COVID cohort does not exist';
+$string['norole'] = 'The COVID custom role does not exist';

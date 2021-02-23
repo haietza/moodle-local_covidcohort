@@ -15,16 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version file.
+ * Cron tasks for plugin.
  *
  * @package   local_covidcohort
- * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace local_covidcohort\task;
+use tool_usertours\tour;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021022208;
-$plugin->requires = 2019111806;
-$plugin->component = 'local_covidcohort';
+class cohort_task extends \core\task\scheduled_task {
+    public function get_name() {
+        return get_string('pluginname', 'local_covidcohort');
+    }
+    
+    public function execute() {
+        $tourid = get_config('local_covidcohort', 'usertourid');
+        if ($tourid) {
+            $tour = tour::instance($tourid);
+            $tour->mark_major_change();
+        } 
+    } 
+}

@@ -43,15 +43,23 @@ if ($mform->is_cancelled()) {
     // In this case you process validated data. $mform->get_data() returns data posted in form.
     $action = $fromform->action;
     $usersfile = $mform->get_file_content('usersfile');
-    $users = explode(PHP_EOL, $usersfile);
+    $users = preg_split('/\n|\r\n?/', $usersfile, -1, PREG_SPLIT_NO_EMPTY);
     
-    if ($action == 'add') {
-        add_users_to_cohort($users);
-    } elseif ($action == 'remove') {
-        remove_users_from_cohort($users);
+    if (sizeof($users) > 0) {
+        if ($action == 'add') {
+            $returnmessage = add_users_to_cohort($users);
+        } elseif ($action == 'remove') {
+            $returnmessage = remove_users_from_cohort($users);
+        }    
+    } else {
+        $returnmessage = array('error' => get_string('usersfileempty', 'local_covidcohort'));
     }
     
-    redirect($return, get_string('success', 'moodle'), null, \core\output\notification::NOTIFY_SUCCESS);
+    if (key($returnmessage) == 'success') {
+        redirect($return, $returnmessage['success'], null, \core\output\notification::NOTIFY_SUCCESS);
+    } elseif (key($returnmessage) == 'error') {
+        redirect($return, $returnmessage['error'], null, \core\output\notification::NOTIFY_ERROR);
+    }
 } else {
     // This branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
     // or on the first display of the form.

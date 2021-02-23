@@ -42,6 +42,11 @@ class upload_users_form extends moodleform {
         $mform->addElement('filepicker', 'usersfile', get_string('usersfile', 'local_covidcohort'), null, array('accepted_types' => '.csv'));
         $mform->addHelpButton('usersfile', 'usersfile', 'local_covidcohort');
         
+        $mform->addElement('hidden', 'cohortshortname', get_config('local_covidcohort', 'cohortshortname'));
+        $mform->setType('cohortshortname', PARAM_TEXT);
+        $mform->addElement('hidden', 'cohortroleshortname', get_config('local_covidcohort', 'cohortroleshortname'));
+        $mform->setType('cohortroleshortname', PARAM_TEXT);
+        
         $this->add_action_buttons();
     }
 
@@ -54,9 +59,7 @@ class upload_users_form extends moodleform {
      * @return $errors array of error message to display on form
      */
     public function validation($data, $files) {
-        global $DB;
         $errors = array();
-
         return $errors;
     }
 }

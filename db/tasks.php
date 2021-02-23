@@ -15,16 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version file.
+ * Local functions for plugin.
  *
  * @package   local_covidcohort
- * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021022208;
-$plugin->requires = 2019111806;
-$plugin->component = 'local_covidcohort';
+$tasks = array(
+    array(
+        'classname' => 'local_covidcohort\task\cohort_task',
+        'blocking' => 0,
+        'minute' => '5',
+        'hour' => '3',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    )
+);
