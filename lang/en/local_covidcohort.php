@@ -39,3 +39,4 @@ $string['usersfile_help'] = 'CSV file of user email addresses to be added or rem
 $string['usersfileempty'] = 'The users file is empty';
 $string['nocohort'] = 'The COVID cohort does not exist';
 $string['norole'] = 'The COVID custom role does not exist';
+$string['covidcohort:assign'] = 'Add and remove users from COVID cohort';

@@ -18,7 +18,8 @@
  * Cron tasks for plugin.
  *
  * @package   local_covidcohort
- * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,16 +28,36 @@ use tool_usertours\tour;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Scheduled tasks for plugin.
+ *
+ * @package   local_covidcohort
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class cohort_task extends \core\task\scheduled_task {
+    /**
+     * Get name of scheduled task.
+     * {@inheritDoc}
+     * @see \core\task\scheduled_task::get_name()
+     */
     public function get_name() {
         return get_string('pluginname', 'local_covidcohort');
     }
-    
+
+    /**
+     * Execute scheduled task.
+     * {@inheritDoc}
+     * @see \core\task\task_base::execute()
+     */
     public function execute() {
         $tourid = get_config('local_covidcohort', 'usertourid');
         if ($tourid) {
             $tour = tour::instance($tourid);
-            $tour->mark_major_change();
-        } 
-    } 
+            if ($tour) {
+                $tour->mark_major_change();
+            }
+        }
+    }
 }

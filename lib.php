@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version file.
+ * Library functions for plugin.
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
@@ -23,8 +23,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+function local_covidcohort_extend_navigation($navigation) {
+    global $USER, $PAGE;
 
-$plugin->version = 2021022504;
-$plugin->requires = 2019111806;
-$plugin->component = 'local_covidcohort';
+    if (empty($USER->id)) {
+        return;
+    }
+
+    $context = context_user::instance($USER->id);
+
+    if (!has_capability('local/covidcohort:assign', $context, $USER)) {
+        return;
+    }
+
+    $covidcohortnode = $PAGE->navigation->add(get_string('pluginname', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'), navigation_node::TYPE_CONTAINER);
+    $uploadusersnode = $covidcohortnode->add(get_string('uploadusers', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'));
+    $uploadusersnode->make_active();
+}

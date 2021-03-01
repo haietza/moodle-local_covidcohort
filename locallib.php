@@ -18,7 +18,8 @@
  * Local functions for plugin.
  *
  * @package   local_covidcohort
- * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,28 +29,28 @@ require_once($CFG->dirroot . '/cohort/lib.php');
 /**
  * Add users to COVID testing required cohort,
  * and assign custom role for Dashboard notification.
- * 
- * @param array users to add
+ *
+ * @param array $users users to add
  * @return array return type and message
  */
 function add_users_to_cohort($users) {
     global $DB;
 
     $context = context_system::instance();
-    
+
     $cohortshortname = get_config('local_covidcohort', 'cohortshortname');
     $cohortid = $DB->get_field('cohort', 'id', array('idnumber' => $cohortshortname));
-    
+
     $roleshortname = get_config('local_covidcohort', 'cohortroleshortname');
     $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
-    
+
     if (!$cohortid) {
         return array('error' => get_string('nocohort', 'local_covidcohort'));
     }
     if (!$roleid) {
         return array('error' => get_string('norole', 'local_covidcohort'));
     }
-    
+
     foreach ($users as $user) {
         $userid = $DB->get_field('user', 'id', array('username' => $user));
         if ($userid) {
@@ -57,7 +58,7 @@ function add_users_to_cohort($users) {
             role_assign($roleid, $userid, $context->id);
         }
     }
-    
+
     return array('success' => get_string('success', 'moodle'));
 }
 
@@ -65,26 +66,27 @@ function add_users_to_cohort($users) {
  * Remove users from COVID testing required cohort,
  * and remove custom role for Dashboard notification.
  *
- * @param array users to remove
+ * @param array $users users to remove
+ * @return array return type and message
  */
 function remove_users_from_cohort($users) {
     global $DB;
-    
+
     $context = context_system::instance();
-    
+
     $cohortshortname = get_config('local_covidcohort', 'cohortshortname');
     $cohortid = $DB->get_field('cohort', 'id', array('idnumber' => $cohortshortname));
-    
+
     $roleshortname = get_config('local_covidcohort', 'cohortroleshortname');
     $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
-    
+
     if (!$cohortid) {
         return array('error' => get_string('nocohort', 'local_covidcohort'));
     }
     if (!$roleid) {
         return array('error' => get_string('norole', 'local_covidcohort'));
     }
-    
+
     foreach ($users as $user) {
         $userid = $DB->get_field('user', 'id', array('username' => $user));
         if ($userid) {

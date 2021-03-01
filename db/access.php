@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version file.
+ * Capabilities for plugin.
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
@@ -25,6 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021022504;
-$plugin->requires = 2019111806;
-$plugin->component = 'local_covidcohort';
+ $capabilities = array(
+    'local/covidcohort:assign' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        )
+    )
+ );

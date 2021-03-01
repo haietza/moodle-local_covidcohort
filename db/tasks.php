@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local functions for plugin.
+ * Scheduled tasks for plugin.
  *
  * @package   local_covidcohort
- * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

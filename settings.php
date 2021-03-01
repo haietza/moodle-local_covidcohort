@@ -29,13 +29,17 @@ defined('MOODLE_INTERNAL') || die;
 if ($hassiteconfig) {
     $settingscategory = new admin_category('covidcohort', get_string('pluginname', 'local_covidcohort'));
     $ADMIN->add('localplugins', $settingscategory);
-    
+
     $settings = new admin_settingpage('local_covidcohort_settings', get_string('pluginsettings', 'local_covidcohort'));
-    $settings->add(new admin_setting_configtext('local_covidcohort/cohortshortname', get_string('cohortshortname', 'local_covidcohort'), get_string('cohortshortname_desc', 'local_covidcohort'), ''));
-    $settings->add(new admin_setting_configtext('local_covidcohort/cohortroleshortname', get_string('roleshortname', 'local_covidcohort'), get_string('roleshortname_desc', 'local_covidcohort'), ''));
-    $settings->add(new admin_setting_configtext('local_covidcohort/usertourid', get_string('usertourid', 'local_covidcohort'), get_string('usertourid_desc', 'local_covidcohort'), ''));
+    $settings->add(new admin_setting_configtext('local_covidcohort/cohortshortname', get_string('cohortshortname', 'local_covidcohort'),
+        get_string('cohortshortname_desc', 'local_covidcohort'), ''));
+    $settings->add(new admin_setting_configtext('local_covidcohort/cohortroleshortname', get_string('roleshortname', 'local_covidcohort'),
+        get_string('roleshortname_desc', 'local_covidcohort'), ''));
+    $settings->add(new admin_setting_configtext('local_covidcohort/usertourid', get_string('usertourid', 'local_covidcohort'),
+        get_string('usertourid_desc', 'local_covidcohort'), ''));
     $ADMIN->add('covidcohort', $settings);
-    
-    $uploadusersform = new admin_externalpage('local_covidcohort_upload', get_string('uploadusers', 'local_covidcohort'), $CFG->wwwroot . '/local/covidcohort/upload_users.php', 'moodle/cohort:assign');
+
+    $uploadusersform = new admin_externalpage('local_covidcohort_upload', get_string('uploadusers', 'local_covidcohort'),
+        $CFG->wwwroot . '/local/covidcohort/upload_users.php', 'moodle/cohort:assign');
     $ADMIN->add('covidcohort', $uploadusersform);
 }

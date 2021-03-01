@@ -18,7 +18,8 @@
  * Implementation of edit form.
  *
  * @package   local_covidcohort
- * @copyright 2021, Michelle Melton <meltonml@appstate.edu>
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,7 +28,7 @@ require_once($CFG->dirroot . '/local/covidcohort/classes/forms/upload_users_form
 require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
 require_login();
 $context = context_system::instance();
-require_capability('moodle/cohort:assign', $context);
+require_capability('local/covidcohort:assign', $context);
 
 $PAGE->set_url($CFG->wwwroot . '/local/covidcohort/upload_users.php');
 $PAGE->set_context($context);
@@ -44,20 +45,20 @@ if ($mform->is_cancelled()) {
     $action = $fromform->action;
     $usersfile = $mform->get_file_content('usersfile');
     $users = preg_split('/\n|\r\n?/', $usersfile, -1, PREG_SPLIT_NO_EMPTY);
-    
-    if (sizeof($users) > 0) {
+
+    if (count($users) > 0) {
         if ($action == 'add') {
             $returnmessage = add_users_to_cohort($users);
-        } elseif ($action == 'remove') {
+        } else if ($action == 'remove') {
             $returnmessage = remove_users_from_cohort($users);
-        }    
+        }
     } else {
         $returnmessage = array('error' => get_string('usersfileempty', 'local_covidcohort'));
     }
-    
+
     if (key($returnmessage) == 'success') {
         redirect($return, $returnmessage['success'], null, \core\output\notification::NOTIFY_SUCCESS);
-    } elseif (key($returnmessage) == 'error') {
+    } else if (key($returnmessage) == 'error') {
         redirect($return, $returnmessage['error'], null, \core\output\notification::NOTIFY_ERROR);
     }
 } else {
@@ -65,7 +66,7 @@ if ($mform->is_cancelled()) {
     // or on the first display of the form.
     $PAGE->set_heading(get_string('pluginname', 'local_covidcohort'));
     $PAGE->set_title(get_string('pluginname', 'local_covidcohort'));
-    
+
     echo $OUTPUT->header();
     echo $OUTPUT->heading(get_string('pluginname', 'local_covidcohort'));
     $mform->display();

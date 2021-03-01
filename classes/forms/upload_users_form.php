@@ -26,6 +26,14 @@
 defined('MOODLE_INTERNAL') || die;
 require_once("$CFG->libdir/formslib.php");
 
+/**
+ * Upload users form.
+ *
+ * @package   local_covidcohort
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class upload_users_form extends moodleform {
 
     /**
@@ -35,18 +43,20 @@ class upload_users_form extends moodleform {
      */
     public function definition() {
         $mform = $this->_form;
-        
-        $mform->addElement('select', 'action', get_string('action', 'local_covidcohort'), array('add' => 'Add to COVID cohort', 'remove' => 'Remove from COVID cohort'));
+
+        $mform->addElement('select', 'action', get_string('action', 'local_covidcohort'),
+            array('add' => 'Add to COVID cohort', 'remove' => 'Remove from COVID cohort'));
         $mform->addHelpButton('action', 'action', 'local_covidcohort');
-        
-        $mform->addElement('filepicker', 'usersfile', get_string('usersfile', 'local_covidcohort'), null, array('accepted_types' => '.csv'));
+
+        $mform->addElement('filepicker', 'usersfile', get_string('usersfile', 'local_covidcohort'),
+            null, array('accepted_types' => '.csv'));
         $mform->addHelpButton('usersfile', 'usersfile', 'local_covidcohort');
-        
+
         $mform->addElement('hidden', 'cohortshortname', get_config('local_covidcohort', 'cohortshortname'));
         $mform->setType('cohortshortname', PARAM_TEXT);
         $mform->addElement('hidden', 'cohortroleshortname', get_config('local_covidcohort', 'cohortroleshortname'));
         $mform->setType('cohortroleshortname', PARAM_TEXT);
-        
+
         $this->add_action_buttons();
     }
 
@@ -54,8 +64,8 @@ class upload_users_form extends moodleform {
      * Validate account linking form data.
      * Some code taken from login/token.php
      *
-     * @param $data data submitted
-     * @param $files files submitted
+     * @param array $data data submitted
+     * @param array $files files submitted
      * @return $errors array of error message to display on form
      */
     public function validation($data, $files) {
