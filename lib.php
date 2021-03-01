@@ -37,6 +37,5 @@ function local_covidcohort_extend_navigation($navigation) {
     }
 
     $covidcohortnode = $PAGE->navigation->add(get_string('pluginname', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'), navigation_node::TYPE_CONTAINER);
-    $uploadusersnode = $covidcohortnode->add(get_string('uploadusers', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'));
-    $uploadusersnode->make_active();
+    $covidcohortnode->add(get_string('uploadusers', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'));
 }

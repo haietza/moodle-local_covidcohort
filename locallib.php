@@ -27,13 +27,13 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/cohort/lib.php');
 
 /**
- * Add users to COVID testing required cohort,
- * and assign custom role for Dashboard notification.
+ * Add/remove users to COVID testing required cohort,
+ * and assign/unassign custom role for Dashboard notification.
  *
- * @param array $users users to add
- * @return array return type and message
+ * @param string $action add or remove
+ * @param array $users users to add/remove
  */
-function add_users_to_cohort($users) {
+function assign_users_to_cohort($action, $users) {
     global $DB;
 
     $context = context_system::instance();
@@ -45,54 +45,28 @@ function add_users_to_cohort($users) {
     $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
 
     if (!$cohortid) {
-        return array('error' => get_string('nocohort', 'local_covidcohort'));
+        mtrace(get_string('nocohort', 'local_covidcohort'));
+        return;
     }
     if (!$roleid) {
-        return array('error' => get_string('norole', 'local_covidcohort'));
+        mtrace(get_string('norole', 'local_covidcohort'));
+        return;
     }
+    
+    mtrace(get_string('logaction', 'local_covidcohort', $action));
 
     foreach ($users as $user) {
         $userid = $DB->get_field('user', 'id', array('username' => $user));
         if ($userid) {
-            cohort_add_member($cohortid, $userid);
-            role_assign($roleid, $userid, $context->id);
+            if ($action == 'add') {
+                cohort_add_member($cohortid, $userid);
+                role_assign($roleid, $userid, $context->id);
+            } else if ($action == 'remove') {
+                cohort_remove_member($cohortid, $userid);
+                role_unassign($roleid, $userid, $context->id);
+            } 
+        } else {
+            mtrace(get_string('nouser', 'local_covidcohort', $user));
         }
     }
-
-    return array('success' => get_string('success', 'moodle'));
-}
-
-/**
- * Remove users from COVID testing required cohort,
- * and remove custom role for Dashboard notification.
- *
- * @param array $users users to remove
- * @return array return type and message
- */
-function remove_users_from_cohort($users) {
-    global $DB;
-
-    $context = context_system::instance();
-
-    $cohortshortname = get_config('local_covidcohort', 'cohortshortname');
-    $cohortid = $DB->get_field('cohort', 'id', array('idnumber' => $cohortshortname));
-
-    $roleshortname = get_config('local_covidcohort', 'cohortroleshortname');
-    $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
-
-    if (!$cohortid) {
-        return array('error' => get_string('nocohort', 'local_covidcohort'));
-    }
-    if (!$roleid) {
-        return array('error' => get_string('norole', 'local_covidcohort'));
-    }
-
-    foreach ($users as $user) {
-        $userid = $DB->get_field('user', 'id', array('username' => $user));
-        if ($userid) {
-            cohort_remove_member($cohortid, $userid);
-            role_unassign($roleid, $userid, $context->id);
-        }
-    }
-    return array('success' => get_string('success', 'moodle'));
 }

@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $tasks = array(
     array(
-        'classname' => 'local_covidcohort\task\cohort_task',
+        'classname' => 'local_covidcohort\task\reset_user_tour',
         'blocking' => 0,
         'minute' => '5',
         'hour' => '3',

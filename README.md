@@ -16,3 +16,7 @@ Enter the ID for the COVID cohort user tour under Site administration > Plugins 
 COVID cohort managers can use the Upload users form to add or remove users from the COVID cohort and assign or unassign the COVID cohort custom role.
 Select the desired action (Add, Remove) from the Action select menu.
 Upload a CSV file of usernames on which to have the desired action performed. Usernames should be in a single column with no column header.
+If COVID cohort managers need current list of cohort members, site admin can Download from Site administration > Users > Accounts > Bulk user actions (use Cohort ID filter for shortname).
+
+User tour is set to reset onc per day at 3:05am. This schedule can be configured in scheduled tasks.
+The assignment of users to the cohort is an ad hoc task, scheduled to run every minute, or with the next cron.

@@ -1,4 +1,6 @@
 <?php
+use block_quickmail\components\queued_message_index_component;
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -37,6 +39,11 @@ $string['action_help'] = 'Select the action for uploaded users (add to or remove
 $string['usersfile'] = 'Users file';
 $string['usersfile_help'] = 'CSV file of user email addresses to be added or removed from COVID required testing cohort. Format accepted: CSV.';
 $string['usersfileempty'] = 'The users file is empty';
-$string['nocohort'] = 'The COVID cohort does not exist';
-$string['norole'] = 'The COVID custom role does not exist';
+$string['success'] = 'Successfully queued';
+$string['logaction'] = '... {$a} users';
+$string['nocohort'] = '... the COVID cohort does not exist';
+$string['norole'] = '... the COVID custom role does not exist';
+$string['nouser'] = '... user "{$a}" does not exist';
 $string['covidcohort:assign'] = 'Add and remove users from COVID cohort';
+$string['resetusertour'] = 'Reset COVID cohort user tour';
+$string['assignusers'] = 'Assign users to COVID cohort';

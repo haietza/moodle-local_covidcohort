@@ -1,4 +1,6 @@
 <?php
+use local_covidcohort\task\assign_users;
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,7 +27,7 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot . '/local/covidcohort/classes/forms/upload_users_form.php');
-require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
+//require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
 require_login();
 $context = context_system::instance();
 require_capability('local/covidcohort:assign', $context);
@@ -45,20 +47,20 @@ if ($mform->is_cancelled()) {
     $action = $fromform->action;
     $usersfile = $mform->get_file_content('usersfile');
     $users = preg_split('/\n|\r\n?/', $usersfile, -1, PREG_SPLIT_NO_EMPTY);
-
+    
     if (count($users) > 0) {
-        if ($action == 'add') {
-            $returnmessage = add_users_to_cohort($users);
-        } else if ($action == 'remove') {
-            $returnmessage = remove_users_from_cohort($users);
-        }
+        // Prepare ad hoc task.
+        $assignusers = new assign_users();
+        $assignusers->set_custom_data(array(
+            'action' => $action,
+            'users' => $users
+        ));
+        // queue it
+        \core\task\manager::queue_adhoc_task($assignusers);
+        $returnmessage = array('success' => get_string('success', 'local_covidcohort'));
+        redirect($return, $returnmessage['success'], null, \core\output\notification::NOTIFY_SUCCESS);
     } else {
         $returnmessage = array('error' => get_string('usersfileempty', 'local_covidcohort'));
-    }
-
-    if (key($returnmessage) == 'success') {
-        redirect($return, $returnmessage['success'], null, \core\output\notification::NOTIFY_SUCCESS);
-    } else if (key($returnmessage) == 'error') {
         redirect($return, $returnmessage['error'], null, \core\output\notification::NOTIFY_ERROR);
     }
 } else {

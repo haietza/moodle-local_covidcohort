@@ -24,40 +24,26 @@
  */
 
 namespace local_covidcohort\task;
-use tool_usertours\tour;
+require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Scheduled tasks for plugin.
+ * Ad hoc task for plugin to assign users.
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
  * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class cohort_task extends \core\task\scheduled_task {
-    /**
-     * Get name of scheduled task.
-     * {@inheritDoc}
-     * @see \core\task\scheduled_task::get_name()
-     */
-    public function get_name() {
-        return get_string('pluginname', 'local_covidcohort');
-    }
-
-    /**
-     * Execute scheduled task.
-     * {@inheritDoc}
-     * @see \core\task\task_base::execute()
-     */
-    public function execute() {
-        $tourid = get_config('local_covidcohort', 'usertourid');
-        if ($tourid) {
-            $tour = tour::instance($tourid);
-            if ($tour) {
-                $tour->mark_major_change();
-            }
-        }
+ class assign_users extends \core\task\adhoc_task {
+     /**
+      * Execute ad hock task.
+      * {@inheritDoc}
+      * @see \core\task\task_base::execute()
+      */
+     public function execute() {
+         $data = $this->get_custom_data();
+         assign_users_to_cohort($data->action, $data->users);
     }
 }
