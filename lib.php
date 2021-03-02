@@ -23,6 +23,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Add the Upload users link to the Navigation block.
+ * @param object $navigation
+ */
 function local_covidcohort_extend_navigation($navigation) {
     global $USER, $PAGE;
 
@@ -36,6 +40,7 @@ function local_covidcohort_extend_navigation($navigation) {
         return;
     }
 
-    $covidcohortnode = $PAGE->navigation->add(get_string('pluginname', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'), navigation_node::TYPE_CONTAINER);
+    $covidcohortnode = $PAGE->navigation->add(get_string('pluginname', 'local_covidcohort'),
+        new moodle_url('/local/covidcohort/upload_users.php'), navigation_node::TYPE_CONTAINER);
     $covidcohortnode->add(get_string('uploadusers', 'local_covidcohort'), new moodle_url('/local/covidcohort/upload_users.php'));
 }

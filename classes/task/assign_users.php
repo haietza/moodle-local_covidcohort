@@ -23,10 +23,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_covidcohort\task;
-require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
-
 defined('MOODLE_INTERNAL') || die();
+require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
 
 /**
  * Ad hoc task for plugin to assign users.
@@ -36,14 +34,14 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- class assign_users extends \core\task\adhoc_task {
-     /**
-      * Execute ad hock task.
-      * {@inheritDoc}
-      * @see \core\task\task_base::execute()
-      */
-     public function execute() {
-         $data = $this->get_custom_data();
-         assign_users_to_cohort($data->action, $data->users);
+class assign_users extends \core\task\adhoc_task {
+    /**
+     * Execute ad hock task.
+     * {@inheritDoc}
+     * @see \core\task\task_base::execute()
+     */
+    public function execute() {
+        $data = $this->get_custom_data();
+        assign_users_to_cohort($data->action, $data->users);
     }
 }

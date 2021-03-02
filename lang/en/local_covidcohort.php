@@ -1,6 +1,4 @@
 <?php
-use block_quickmail\components\queued_message_index_component;
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -37,7 +35,7 @@ $string['uploadusers'] = 'Upload users';
 $string['action'] = 'Action';
 $string['action_help'] = 'Select the action for uploaded users (add to or remove from cohort)';
 $string['usersfile'] = 'Users file';
-$string['usersfile_help'] = 'CSV file of user email addresses to be added or removed from COVID required testing cohort. Format accepted: CSV.';
+$string['usersfile_help'] = 'CSV file of user email addresses to be added or removed from COVID required testing cohort; format accepted: CSV';
 $string['usersfileempty'] = 'The users file is empty';
 $string['success'] = 'Successfully queued';
 $string['logaction'] = '... {$a} users';

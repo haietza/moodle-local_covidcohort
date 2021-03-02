@@ -42,7 +42,7 @@ function assign_users_to_cohort($action, $users) {
         mtrace(get_string('nocohort', 'local_covidcohort'));
         return;
     }
-    
+
     mtrace(get_string('logaction', 'local_covidcohort', $action));
 
     foreach ($users as $user) {
@@ -50,11 +50,9 @@ function assign_users_to_cohort($action, $users) {
         if ($userid) {
             if ($action == 'add') {
                 cohort_add_member($cohortid, $userid);
-                //role_assign($roleid, $userid, $context->id);
             } else if ($action == 'remove') {
                 cohort_remove_member($cohortid, $userid);
-                //role_unassign($roleid, $userid, $context->id);
-            } 
+            }
         } else {
             mtrace(get_string('nouser', 'local_covidcohort', $user));
         }
