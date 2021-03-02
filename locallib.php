@@ -36,20 +36,10 @@ require_once($CFG->dirroot . '/cohort/lib.php');
 function assign_users_to_cohort($action, $users) {
     global $DB;
 
-    $context = context_system::instance();
-
     $cohortshortname = get_config('local_covidcohort', 'cohortshortname');
     $cohortid = $DB->get_field('cohort', 'id', array('idnumber' => $cohortshortname));
-
-    $roleshortname = get_config('local_covidcohort', 'cohortroleshortname');
-    $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
-
     if (!$cohortid) {
         mtrace(get_string('nocohort', 'local_covidcohort'));
-        return;
-    }
-    if (!$roleid) {
-        mtrace(get_string('norole', 'local_covidcohort'));
         return;
     }
     
@@ -60,10 +50,10 @@ function assign_users_to_cohort($action, $users) {
         if ($userid) {
             if ($action == 'add') {
                 cohort_add_member($cohortid, $userid);
-                role_assign($roleid, $userid, $context->id);
+                //role_assign($roleid, $userid, $context->id);
             } else if ($action == 'remove') {
                 cohort_remove_member($cohortid, $userid);
-                role_unassign($roleid, $userid, $context->id);
+                //role_unassign($roleid, $userid, $context->id);
             } 
         } else {
             mtrace(get_string('nouser', 'local_covidcohort', $user));

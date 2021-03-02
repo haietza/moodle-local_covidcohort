@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version file.
+ * Event listeners.
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
@@ -23,8 +23,25 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2021030200;
-$plugin->requires = 2019111806;
-$plugin->component = 'local_covidcohort';
+$callback = 'local_covidcohort_observer::manage_events';
+
+$observers = array (
+    array (
+        'eventname' => '\core\event\cohort_member_added',
+        'callback' => $callback,
+    ),
+    array (
+        'eventname' => '\core\event\cohort_member_removed',
+        'callback' => $callback,
+    ),
+    array (
+        'eventname' => '\core\event\role_assigned',
+        'callback' => $callback,
+    ),
+    array (
+        'eventname' => '\core\event\role_unassigned',
+        'callback' => $callback,
+    )
+);
