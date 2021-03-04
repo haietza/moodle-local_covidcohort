@@ -71,19 +71,19 @@ class upload_users_form extends moodleform {
     public function validation($data, $files) {
         global $DB;
         $errors = array();
-        
+
         $cohortshortname = $data['cohortshortname'];
         $cohort = $DB->get_record('cohort', array('idnumber' => $cohortshortname));
         if (empty($cohort)) {
             $errors['action'] = get_string('nocohortform', 'local_covidcohort');
         }
-        
+
         $cohortroleshortname = $data['cohortroleshortname'];
-        $cohortrole= $DB->get_record('role', array('shortname' => $cohortroleshortname));
+        $cohortrole = $DB->get_record('role', array('shortname' => $cohortroleshortname));
         if (empty($cohortrole)) {
             $errors['action'] = get_string('noroleform', 'local_covidcohort');
         }
-        
+
         return $errors;
     }
 }

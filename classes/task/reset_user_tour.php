@@ -58,6 +58,8 @@ class reset_user_tour extends \core\task\scheduled_task {
             $tour = tour::instance($tourid);
             if ($tour) {
                 $tour->mark_major_change();
+            } else {
+                mtrace(get_string('nousertour', 'local_covidcohort', $tourid));
             }
         }
     }

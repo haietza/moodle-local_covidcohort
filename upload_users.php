@@ -54,11 +54,19 @@ if ($mform->is_cancelled()) {
         ));
         // Queue it.
         \core\task\manager::queue_adhoc_task($assignusers);
-        $returnmessage = array('success' => get_string('success', 'local_covidcohort'));
-        redirect($return, $returnmessage['success'], null, \core\output\notification::NOTIFY_SUCCESS);
+
+        $usertourid = get_config('local_covidcohort', 'usertourid');
+        $usertour = $DB->get_field('tool_usertours_tours', 'id', array('id' => $usertourid));
+        if (!$usertour) {
+            $returnmessage = get_string('warning', 'local_covidcohort');
+            redirect($return, $returnmessage, null, \core\output\notification::NOTIFY_WARNING);
+        } else {
+            $returnmessage = get_string('success', 'local_covidcohort');
+            redirect($return, $returnmessage, null, \core\output\notification::NOTIFY_SUCCESS);
+        }
     } else {
-        $returnmessage = array('error' => get_string('usersfileempty', 'local_covidcohort'));
-        redirect($return, $returnmessage['error'], null, \core\output\notification::NOTIFY_ERROR);
+        $returnmessage = get_string('usersfileempty', 'local_covidcohort');
+        redirect($return, $returnmessage, null, \core\output\notification::NOTIFY_ERROR);
     }
 } else {
     // This branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
