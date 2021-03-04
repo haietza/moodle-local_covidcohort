@@ -6,7 +6,8 @@ Install the plugin according to the [MoodleDocs](https://docs.moodle.org/en/Inst
 # Usage instructions
 
 ## Site admin usage
-* Create a cohort for members and enter the shortname under Site administration > Plugins > Local > COVID cohort > Settings.
+* Create a cohort for members, with the System context
+* Enter the cohort shortname under Site administration > Plugins > Local > COVID cohort > Settings.
 * Create a custom role for COVID cohort manager
   * Based on ARCHETYPE: Authenticated user
   * Assignable at the system context level
@@ -17,7 +18,10 @@ Install the plugin according to the [MoodleDocs](https://docs.moodle.org/en/Inst
   * Based on ARCHETYPE: Authenticated user
   * Assignable at the system context level
 * Enter the shortname for the COVID cohort member role under Site administration > Plugins > Local > COVID cohort > Settings.
-* Add a User tour for the desired Dashboard notification filtered to the COVID cohort member role.
+* Create a User tour for the desired Dashboard notification filtered to the COVID cohort member role.
+  * Apply to URL match: /my/%
+  * Role: COVID cohort member
+  * Per the [MoodleDocs](https://docs.moodle.org/en/User_tours), make sure the user tour is the only one enabled for the Dashboard.
 * Enter the ID for the COVID cohort user tour under Site administration > Plugins > Local > COVID cohort > Settings.
 * If COVID cohort managers need a current list of cohort members, site admins can Download from Site administration > Users > Accounts > Bulk user actions (use Cohort ID filter for shortname).
 
@@ -28,4 +32,4 @@ COVID cohort managers can use the Upload users form to add or remove users from 
 
 ## General usage
 * The user tour will reset once per day at 3:05am (so it will display again on the Dashboard). This schedule can be configured under Site administration > Server > Tasks > Scheduled tasks > Reset COVID cohort user tour.
-* The assignment of users to the cohort is an ad hoc task, scheduled to run every minute, or with the next cron run.
+* The assignment of users to the cohort is an ad hoc task, so it will run with the next scheduled cron.
