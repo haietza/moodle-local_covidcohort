@@ -82,7 +82,7 @@ class local_covidcohort_observer {
                         mtrace(get_string('nocohort', 'local_covidcohort'));
                         return;
                     }
-                    if ($event->eventname = '\core\event\role_assigned') {
+                    if ($event->eventname == '\core\event\role_assigned') {
                         cohort_add_member($cohortid, $event->relateduserid);
                     } else {
                         cohort_remove_member($cohortid, $event->relateduserid);

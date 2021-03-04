@@ -47,7 +47,7 @@ if ($mform->is_cancelled()) {
 
     if (count($users) > 0) {
         // Prepare ad hoc task.
-        $assignusers = new assign_users();
+        $assignusers = new \local_covidcohort\task\assign_users();
         $assignusers->set_custom_data(array(
             'action' => $action,
             'users' => $users
