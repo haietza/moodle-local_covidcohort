@@ -61,8 +61,7 @@ class upload_users_form extends moodleform {
     }
 
     /**
-     * Validate account linking form data.
-     * Some code taken from login/token.php
+     * Validate upload users form data.
      *
      * @param array $data data submitted
      * @param array $files files submitted

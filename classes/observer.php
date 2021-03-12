@@ -48,7 +48,7 @@ class local_covidcohort_observer {
             case '\core\event\cohort_member_removed':
                 $cohortshortname = get_config('local_covidcohort', 'cohortshortname');
                 $cohortid = $DB->get_field('cohort', 'id', array('idnumber' => $cohortshortname));
-                if (!$cohortid) {
+                if (!empty($cohortshortname) && !$cohortid) {
                     mtrace(get_string('nocohort', 'local_covidcohort'));
                     return;
                 }
@@ -70,7 +70,7 @@ class local_covidcohort_observer {
             case '\core\event\role_unassigned':
                 $roleshortname = get_config('local_covidcohort', 'cohortroleshortname');
                 $roleid = $DB->get_field('role', 'id', array('shortname' => $roleshortname));
-                if (!$roleid) {
+                if (!empty($roleshortname) && !$roleid) {
                     mtrace(get_string('norole', 'local_covidcohort'));
                     return;
                 }
