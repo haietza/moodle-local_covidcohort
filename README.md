@@ -31,5 +31,5 @@ COVID cohort managers can use the Upload users form to add or remove users from 
 * Upload a CSV file of usernames on which to have the desired action performed. Usernames should be in a single column with no column header.
 
 ## General usage
-* The user tour will reset once per day at 3:05am (so it will display again on the Dashboard). This schedule can be configured under Site administration > Server > Tasks > Scheduled tasks > Reset COVID cohort user tour.
+* The user tour will reset 4 times per day, every 2 hours between 8am and 4pm (so it will display again on the Dashboard). This schedule can be configured under Site administration > Server > Tasks > Scheduled tasks > Reset COVID cohort user tour.
 * The assignment of users to the cohort is an ad hoc task, so it will run with the next scheduled cron.

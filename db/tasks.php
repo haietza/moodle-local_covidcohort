@@ -29,8 +29,8 @@ $tasks = array(
     array(
         'classname' => 'local_covidcohort\task\reset_user_tour',
         'blocking' => 0,
-        'minute' => '5',
-        'hour' => '3',
+        'minute' => '0',
+        'hour' => '8,10,12,14',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*'
