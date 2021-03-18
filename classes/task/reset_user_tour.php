@@ -19,7 +19,7 @@
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class reset_user_tour extends \core\task\scheduled_task {

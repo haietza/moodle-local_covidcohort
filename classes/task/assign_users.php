@@ -19,7 +19,7 @@
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ require_once($CFG->dirroot . '/local/covidcohort/locallib.php');
  *
  * @package   local_covidcohort
  * @author    Michelle Melton <meltonml@appstate.edu>
- * @copyright (c) 2021 Appalachian State Universtiy, Boone, NC
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class assign_users extends \core\task\adhoc_task {
