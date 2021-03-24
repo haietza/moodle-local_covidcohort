@@ -29,11 +29,15 @@ global $CFG;
 /**
  * Unit tests for {@link local_covidcohort}.
  * @group local_covidcohort
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 class local_covidcohort_tasks_testcase extends advanced_testcase {
     public function test_assign_users_add() {
         $this->resetAfterTest();
-        
+
         $cohortrecord = array(
             'contextid' => context_system::instance()->id,
             'name' => 'COVID',
@@ -41,7 +45,7 @@ class local_covidcohort_tasks_testcase extends advanced_testcase {
         );
         $cohort = $this->getDataGenerator()->create_cohort($cohortrecord);
         set_config('cohortshortname', $cohort->idnumber, 'local_covidcohort');
-        
+
         $rolerecord = array(
             'name' => 'COVID',
             'shortname' => 'covid',
@@ -49,29 +53,29 @@ class local_covidcohort_tasks_testcase extends advanced_testcase {
         );
         $this->getDataGenerator()->create_role($rolerecord);
         set_config('cohortroleshortname', $rolerecord['shortname'], 'local_covidcohort');
-        
+
         $user1 = $this->getDataGenerator()->create_user();
         $user2 = $this->getDataGenerator()->create_user();
-        
+
         $users = array($user1->username, $user2->username);
-        
+
         $assignusers = new \local_covidcohort\task\assign_users();
         $assignusers->set_custom_data(array(
             'action' => 'add',
             'users' => $users
         ));
         \core\task\manager::queue_adhoc_task($assignusers);
-        
+
         $this->runAdhocTasks('\local_covidcohort\task\assign_users');
-        
+
         $this->assertTrue(cohort_is_member($cohort->id, $user1->id));
         $expectedstring = get_string('logaction', 'local_covidcohort', 'add') . PHP_EOL;
         $this->expectOutputString($expectedstring);
     }
-    
+
     public function test_assign_users_remove() {
         $this->resetAfterTest();
-        
+
         $cohortrecord = array(
             'contextid' => context_system::instance()->id,
             'name' => 'COVID',
@@ -79,7 +83,7 @@ class local_covidcohort_tasks_testcase extends advanced_testcase {
         );
         $cohort = $this->getDataGenerator()->create_cohort($cohortrecord);
         set_config('cohortshortname', $cohort->idnumber, 'local_covidcohort');
-        
+
         $rolerecord = array(
             'name' => 'COVID',
             'shortname' => 'covid',
@@ -87,24 +91,24 @@ class local_covidcohort_tasks_testcase extends advanced_testcase {
         );
         $this->getDataGenerator()->create_role($rolerecord);
         set_config('cohortroleshortname', $rolerecord['shortname'], 'local_covidcohort');
-        
+
         $user1 = $this->getDataGenerator()->create_user();
         $user2 = $this->getDataGenerator()->create_user();
-        
+
         cohort_add_member($cohort->id, $user1->id);
         cohort_add_member($cohort->id, $user2->id);
-        
+
         $users = array($user1->username, $user2->username);
-        
+
         $assignusers = new \local_covidcohort\task\assign_users();
         $assignusers->set_custom_data(array(
             'action' => 'remove',
             'users' => $users
         ));
         \core\task\manager::queue_adhoc_task($assignusers);
-        
+
         $this->runAdhocTasks('\local_covidcohort\task\assign_users');
-        
+
         $this->assertFalse(cohort_is_member($cohort->id, $user1->id));
         $expectedstring = get_string('logaction', 'local_covidcohort', 'remove') . PHP_EOL;
         $this->expectOutputString($expectedstring);

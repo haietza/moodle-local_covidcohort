@@ -30,12 +30,16 @@ require_once($CFG->dirroot . '/local/covidcohort/classes/forms/upload_users_form
 /**
  * Unit tests for {@link local_covidcohort}.
  * @group local_covidcohort
+ * @author    Michelle Melton <meltonml@appstate.edu>
+ * @copyright (c) 2021 Appalachian State University, Boone, NC
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
-class local_covidcohort_upload_users_testcase extends advanced_testcase {    
+class local_covidcohort_upload_users_testcase extends advanced_testcase {
     public function test_upload_users_no_users() {
         global $DB;
         $this->resetAfterTest(true);
-        
+
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
         $rolerecord = array(
@@ -52,17 +56,17 @@ class local_covidcohort_upload_users_testcase extends advanced_testcase {
         );
         $DB->insert_record('role_capabilities', $rolecapabilities);
         role_assign($roleid, $user->id, context_system::instance()->id);
-        
+
         $submitteddata = array(
             'action' => 'add'
         );
-        
+
         upload_users_form::mock_submit($submitteddata);
-        
+
         $form = new upload_users_form();
         $form->set_data($submitteddata);
         $actualfromform = $form->get_data();
-        
+
         $this->assertNull($actualfromform);
     }
 }
