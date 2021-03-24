@@ -49,3 +49,4 @@ $string['nousertour'] = '... the user tour "{$a}" does not exist';
 $string['covidcohort:assign'] = 'Add and remove users from COVID cohort';
 $string['resetusertour'] = 'Reset COVID cohort user tour';
 $string['assignusers'] = 'Assign users to COVID cohort';
+$string['privacy:metadata'] = 'The COVID cohort plugin only adds/removes members of the cohort and assigns/unassigns the role for displaying a user tour.';
